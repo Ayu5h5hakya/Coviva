@@ -1,3 +1,4 @@
+import 'package:coviva/common/colors.dart';
 import 'package:coviva/common/commentTile.dart';
 import 'package:coviva/common/interaction.dart';
 import 'package:coviva/common/postMeta.dart';
@@ -16,7 +17,7 @@ class CommentPage extends StatelessWidget {
         title: Text('Comments'),
       ),
       body: CommentList(),
-      backgroundColor: Colors.white,
+      backgroundColor: commentsBackground,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.create),
         onPressed: (){},

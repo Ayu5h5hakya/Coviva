@@ -1,3 +1,4 @@
+import 'package:coviva/common/colors.dart';
 import 'package:coviva/common/interaction.dart';
 import 'package:coviva/common/postMeta.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class PostsPage extends StatelessWidget {
         title: Text('All'),
       ),
       body: PostList(),
+      backgroundColor: postsBackground,
     );
   }
 }

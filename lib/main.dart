@@ -1,3 +1,4 @@
+import 'package:coviva/common/colors.dart';
 import 'package:coviva/pages/postComments/comments.dart';
 import 'package:flutter/material.dart';
 import 'package:coviva/pages/postlist/posts.dart';
@@ -11,7 +12,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: PostsPage(title: 'Flutter Demo Home Page'),
       theme: ThemeData(
-        backgroundColor: Colors.indigo,
+        primaryColor: covivoPrimary,
+        accentColor: covivoAccent
       ),
       onGenerateRoute: (settings){
         if(settings.name == CommentPage.routeName){
