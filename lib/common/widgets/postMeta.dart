@@ -1,7 +1,12 @@
+import 'package:coviva/common/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class PostMeta extends StatelessWidget {
+  final Post post;
+  
+  PostMeta({Key key, this.post}) : super(key : key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -9,8 +14,9 @@ class PostMeta extends StatelessWidget {
       children: <Widget>[
         Padding(
           child: Text(
-            'Post title',
+            post.title,
             style: TextStyle(fontSize: 18.0),
+            maxLines: 1,
           ),
           padding: EdgeInsets.all(2.0),
         ),
@@ -18,13 +24,13 @@ class PostMeta extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text(
-                'Uploader name in red',
+                post.uploaderName,
                 style: TextStyle(color: Colors.redAccent),
               ),
               Text(' · '),
-              Text('post source'),
+              Text('i.reddit.com'),
               Text(' · '),
-              Text('time')
+              Text(post.uploadTime)
             ],
           ),
           padding: EdgeInsets.all(2.0),
@@ -33,16 +39,24 @@ class PostMeta extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text(
-                'Likes',
+                _formatCountKNotation(post.likeCount),
                 style: TextStyle(fontSize: 17.0),
               ),
               Text(' · '),
-              Text('Comments')
+              Text(_formatCountKNotation(post.commentCount))
             ],
           ),
           padding: EdgeInsets.all(2.0),
         )
       ],
     );
+  }
+
+  String _formatCountKNotation(int count){
+    if (count<1000) {
+      return count.toString();
+    } else {
+      return (count/1000).toString() + "K";
+    }
   }
 }

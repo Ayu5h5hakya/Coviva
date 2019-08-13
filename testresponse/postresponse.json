@@ -1,0 +1,54 @@
+{
+  "data":[
+    {
+      "userId": 1,
+      "id": 1,
+      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+      "image_url":"https://media.cntraveller.in/wp-content/uploads/2018/10/GettyImages-990972132-866x487.jpg",
+      "uploader_name":"a_ush",
+      "upload_time":"3:00 AM",
+      "like_count":15000,
+      "comment_count":1000
+    },
+    {
+      "userId": 1,
+      "id": 2,
+      "title": "qui est esse",
+      "image_url":"https://cdn.cnn.com/cnnnext/dam/assets/190121090951-04-blood-moon-global-01212019-exlarge-169.jpg",
+      "uploader_name":"a_ush",
+      "upload_time":"9:00 AM",
+      "like_count":15000,
+      "comment_count":1000  
+    },
+    {
+      "userId": 1,
+      "id": 3,
+      "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+      "image_url":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM4Y_m6SbMztUGALvkh5HQ5lMzuxVPY4Bu6YGmsL8PrV9i8_gDIw",
+      "uploader_name":"a_ush",
+      "upload_time":"11:00 AM",
+      "like_count":15000,
+      "comment_count":1000
+    },
+    {
+      "userId": 1,
+      "id": 4,
+      "title": "eum et est occaecati",
+      "image_url":"https://media.cntraveller.in/wp-content/uploads/2018/10/GettyImages-990972132-866x487.jpg",
+      "uploader_name":"a_ush",
+      "upload_time":"2:00 AM",
+      "like_count":15000,
+      "comment_count":1000
+    },
+    {
+      "userId": 1,
+      "id": 5,
+      "title": "nesciunt quas odio",
+      "image_url":"https://www.gettyimages.co.uk/gi-resources/images/frontdoor/creative/PanoramicImagesRM/FD_image.jpg",
+      "uploader_name":"a_ush",
+      "upload_time":"6:00 AM",
+      "like_count":15000,
+      "comment_count":1000
+    }
+  ]
+}

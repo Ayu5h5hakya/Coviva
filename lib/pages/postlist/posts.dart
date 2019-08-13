@@ -1,13 +1,14 @@
 import 'package:coviva/common/colors.dart';
-import 'package:coviva/common/interaction.dart';
-import 'package:coviva/common/postMeta.dart';
+import 'package:coviva/common/services/post_services.dart';
+import 'package:coviva/common/widgets/interaction.dart';
+import 'package:coviva/common/models/post.dart';
+import 'package:coviva/common/widgets/postMeta.dart';
 import 'package:flutter/material.dart';
 import 'package:coviva/pages/postComments/comments.dart';
 
 class PostsPage extends StatelessWidget {
-  PostsPage({Key key, this.title}) : super(key: key);
 
-  final String title;
+  PostsPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,22 @@ class PostsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('All'),
       ),
-      body: PostList(),
+      body: FutureBuilder<PostResponse>(
+        future: getPost(),
+        builder: (context, snapshot){
+          if (snapshot.connectionState == ConnectionState.done) {
+            if(snapshot.hasError){
+              return Text('Error');
+            } else {
+              return PostList(posts: snapshot.data);
+            }
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
       backgroundColor: postsBackground,
     );
   }
@@ -23,6 +39,9 @@ class PostsPage extends StatelessWidget {
 
 class PostList extends StatefulWidget {
   static const routeName = '/';
+  final PostResponse posts;
+
+  PostList({Key key, this.posts}) : super(key : key);
   
   @override
   PostState createState() => PostState();
@@ -34,22 +53,22 @@ class PostState extends State<PostList> {
     return ListView.builder(
       itemCount: 5,
       itemBuilder: (context, index) {
-        return _buildPostCard(context);
+        return _buildPostCard(context, widget.posts.posts[index]);
       },
     );
   }
 
-  Widget _buildPostCard(BuildContext context) {
+  Widget _buildPostCard(BuildContext context, Post post) {
     return new GestureDetector(
-      onTap: (){ _gotoComments(context);},
+      onTap: (){ _gotoComments(context, post);},
       child : new Container(
       margin: const EdgeInsets.all(5.0),
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          PostMeta(),
-          Image.asset('assets/images/minimalism.jpg'),
+          PostMeta(post : post),
+          Image.network(post.imageUrl),
           PostBottomBar()
         ],
       ),
@@ -57,7 +76,7 @@ class PostState extends State<PostList> {
     );
   }
 
-  _gotoComments(BuildContext context) async{
-    await Navigator.pushNamed(context, CommentPage.routeName, arguments: 1);
+  _gotoComments(BuildContext context, Post post) async{
+    await Navigator.pushNamed(context, CommentPage.routeName, arguments: post);
   }
 }

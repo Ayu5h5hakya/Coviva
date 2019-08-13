@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: PostsPage(title: 'Flutter Demo Home Page'),
+      home: PostsPage(),
       theme: ThemeData(
         primaryColor: covivoPrimary,
         accentColor: covivoAccent
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         if(settings.name == CommentPage.routeName){
           return MaterialPageRoute(
             builder: (context){
-              return CommentPage();
+              return CommentPage(post : settings.arguments);
             }
           );
         }
