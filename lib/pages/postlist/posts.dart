@@ -12,11 +12,7 @@ class PostsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('All'),
-      ),
-      body: FutureBuilder<PostResponse>(
+    return FutureBuilder<PostResponse>(
         future: getPost(),
         builder: (context, snapshot){
           if (snapshot.connectionState == ConnectionState.done) {
@@ -31,9 +27,7 @@ class PostsPage extends StatelessWidget {
             );
           }
         },
-      ),
-      backgroundColor: postsBackground,
-    );
+      );
   }
 }
 

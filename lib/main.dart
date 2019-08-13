@@ -1,4 +1,5 @@
 import 'package:coviva/common/colors.dart';
+import 'package:coviva/pages/homepage.dart';
 import 'package:coviva/pages/postComments/comments.dart';
 import 'package:flutter/material.dart';
 import 'package:coviva/pages/postlist/posts.dart';
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: PostsPage(),
+      home: HomePage(),
       theme: ThemeData(
         primaryColor: covivoPrimary,
         accentColor: covivoAccent
