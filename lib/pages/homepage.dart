@@ -1,5 +1,4 @@
 import 'package:coviva/common/colors.dart';
-import 'package:coviva/pages/postComments/comments.dart';
 import 'package:coviva/pages/postlist/posts.dart';
 import 'package:coviva/pages/postlist/savedposts.dart';
 import 'package:coviva/pages/profile/profile.dart';
@@ -41,7 +40,7 @@ class HomeState extends State<HomePage>{
           BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile'))
         ],
         currentIndex: widget._selectedindex,
-        selectedItemColor: covivoAccent,
+      selectedItemColor: covivoAccent,
         onTap: _onItemSelected,
       ),
       body: widget.widgetList.elementAt(widget._selectedindex),

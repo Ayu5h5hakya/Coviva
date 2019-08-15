@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class PostResponse{
   final List<Post> posts;
 
@@ -11,7 +13,7 @@ class PostResponse{
 
 }
 
-class Post{
+class Post extends Equatable {
   final int userId;
   final int id;
   final String title;
@@ -35,4 +37,7 @@ class Post{
       commentCount: json['comment_count']
     );
   }
+
+  @override
+  String toString() => 'Post{id : $id}';
 }
