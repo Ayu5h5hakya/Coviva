@@ -7,3 +7,8 @@ class Fetch extends FetchEvent {
   String toString() => 'Fetch';
 
 }
+
+class FetchDB extends FetchEvent {
+  @override
+  String toString() => 'DBGet';
+}

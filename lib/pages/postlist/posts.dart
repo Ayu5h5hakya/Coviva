@@ -75,7 +75,12 @@ class PostState extends State<PostList> {
             children: <Widget>[
               PostMeta(post: post),
               Image.network(post.imageUrl),
-              PostBottomBar()
+              PostBottomBar(
+                parentAction: (type){
+                  print(type);
+                  _postBloc.dispatch(FetchDB());
+                },
+              )
             ],
           ),
         ));

@@ -13,3 +13,7 @@ Future<PostResponse> getPost() async {
   if(response.statusCode == 200) return PostResponse.fromJson(json.decode(response.body));
   else throw Exception('Failed to load post');
 }
+
+Future<PostResponse> getPostFromDB() async {
+  
+}

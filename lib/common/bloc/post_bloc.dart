@@ -19,6 +19,15 @@ class PostBloc extends Bloc<FetchEvent, FetchState>{
       } catch(_){
         yield PostError();
       }
+    } else if(event is FetchDB){
+      try{
+        if(currentState is PostUninitailized){
+          final posts = await getPostFromDB();
+          yield PostLoaded(posts: posts.posts);
+        }
+      } catch(_){
+        yield PostError();
+      }
     }
   }
 }
