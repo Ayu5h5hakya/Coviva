@@ -38,6 +38,19 @@ class Post extends Equatable {
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'userId' : userId,
+      'title': title,
+      'image_url': imageUrl,
+      'uploader_name':uploaderName,
+      'upload_time':uploadTime,
+      'like_count':likeCount,
+      'comment_count':commentCount
+    };
+  }
+
   @override
   String toString() => 'Post{id : $id}';
 }

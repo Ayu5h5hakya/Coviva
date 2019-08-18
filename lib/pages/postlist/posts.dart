@@ -1,6 +1,6 @@
-import 'package:coviva/common/bloc/post_bloc.dart';
-import 'package:coviva/common/bloc/post_event.dart';
-import 'package:coviva/common/bloc/post_state.dart';
+import 'package:coviva/common/bloc/posts/post_bloc.dart';
+import 'package:coviva/common/bloc/posts/post_event.dart';
+import 'package:coviva/common/bloc/posts/post_state.dart';
 import 'package:coviva/common/widgets/interaction.dart';
 import 'package:coviva/common/models/post.dart';
 import 'package:coviva/common/widgets/postMeta.dart';
@@ -13,35 +13,7 @@ class PostsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<PostBloc>(
-      builder: (context) => PostBloc()..dispatch(Fetch()),
-      child: PostList(),
-    );
-  }
-}
-
-class PostList extends StatefulWidget {
-  static const routeName = '/';
-  final PostResponse posts;
-
-  PostList({Key key, this.posts}) : super(key: key);
-
-  @override
-  PostState createState() => PostState();
-}
-
-class PostState extends State<PostList> {
-  PostBloc _postBloc;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _postBloc = BlocProvider.of<PostBloc>(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    final postBloc = BlocProvider.of<PostBloc>(context)..dispatch(Fetch());
     return BlocBuilder<PostBloc,FetchState>(
       builder: (context, state) {
         if (state is PostUninitailized) {
@@ -53,7 +25,7 @@ class PostState extends State<PostList> {
             return ListView.builder(
               itemCount: 5,
               itemBuilder: (context, index) {
-                return _buildPostCard(context, state.posts[index]);
+                return _buildPostCard(context,postBloc,state.posts[index]);
               },
             );
           }
@@ -62,7 +34,7 @@ class PostState extends State<PostList> {
     );
   }
 
-  Widget _buildPostCard(BuildContext context, Post post) {
+    Widget _buildPostCard(BuildContext context, PostBloc bloc, Post post) {
     return new GestureDetector(
         onTap: () {
           _gotoComments(context, post);
@@ -78,7 +50,7 @@ class PostState extends State<PostList> {
               PostBottomBar(
                 parentAction: (type){
                   print(type);
-                  _postBloc.dispatch(FetchDB());
+                  bloc.dispatch(InsertDB(post: post));
                 },
               )
             ],

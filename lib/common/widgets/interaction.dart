@@ -5,7 +5,10 @@ enum ButtonActions { upvote, downvote, favorite, comment, overflow }
 class PostBottomBar extends StatelessWidget {
   final void Function(ButtonActions value) parentAction;
 
-  PostBottomBar({Key key, this.parentAction}) : super(key: key);
+  PostBottomBar({
+    Key key, 
+    @required this.parentAction
+    }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

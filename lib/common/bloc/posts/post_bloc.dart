@@ -1,7 +1,8 @@
-import 'package:coviva/common/bloc/post_event.dart';
-import 'package:coviva/common/bloc/post_state.dart';
+import 'package:coviva/common/bloc/posts/post_event.dart';
+import 'package:coviva/common/bloc/posts/post_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:coviva/common/services/post_services.dart';
+import 'package:coviva/common/services/DBhelper.dart';
 
 class PostBloc extends Bloc<FetchEvent, FetchState>{
 
@@ -21,13 +22,21 @@ class PostBloc extends Bloc<FetchEvent, FetchState>{
       }
     } else if(event is FetchDB){
       try{
-        if(currentState is PostUninitailized){
-          final posts = await getPostFromDB();
+          final posts = await DatabaseHelper.instance.getPostFromDB();
           yield PostLoaded(posts: posts.posts);
-        }
       } catch(_){
         yield PostError();
       }
+    } else if(event is InsertDB){
+      try {
+        await DatabaseHelper.instance.insert(event.post);
+        yield PostLoaded(posts: (this.currentState as PostLoaded).posts);
+      } catch(_){
+        yield PostError();
+      }
+    } else if(event is Reset){
+      yield PostUninitailized();
     }
   }
 }
+
