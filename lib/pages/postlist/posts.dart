@@ -28,6 +28,16 @@ class PostsPage extends StatelessWidget {
                 return _buildPostCard(context,postBloc,state.posts[index]);
               },
             );
+          } else if(state is PostError){
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.error),
+                  Text('Something went wrong')
+                ],
+              ),
+            );
           }
         }
       },
