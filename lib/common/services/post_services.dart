@@ -1,15 +1,22 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:coviva/common/models/post.dart';
 
-String url = 'https://jsonplaceholder.typicode.com/posts?_limit=5';
-String testurl = 'http://5d5235993432e70014e6b6c1.mockapi.io/posts';
-String testcommentsurl = 'http://5d5235993432e70014e6b6c1.mockapi.io/comments/1';
+class PostApiClient {
+  static const baseUrl = 'http://5d5235993432e70014e6b6c1.mockapi.io';
+  final http.Client httpClient;
 
-Future<PostResponse> getPost() async {
-  final response = await http.get(testurl);
-  print(response.body);
-  if(response.statusCode == 200) return PostResponse.fromJson(json.decode(response.body));
-  else throw Exception('Failed to load post');
+  PostApiClient({@required this.httpClient});
+
+  Future<PostResponse> getPost() async {
+    final postsUrl = '$baseUrl/posts';
+    final response = await this.httpClient.get(postsUrl);
+    print(response.body);
+    if (response.statusCode == 200)
+      return PostResponse.fromJson(json.decode(response.body));
+    else
+      throw Exception('Failed to load posts');
+  }
 }
