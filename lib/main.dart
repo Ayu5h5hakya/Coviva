@@ -12,13 +12,10 @@ import 'package:http/http.dart' as http;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
-  final PostRepository postRepository = PostRepository(
-    postApiClient: PostApiClient(
-     httpClient: http.Client()
-    )
-  );
-
+  final TabBloc tabBloc = TabBloc();
+  final PostBloc postBloc = PostBloc(
+      postRepository: PostRepository(
+          postApiClient: PostApiClient(httpClient: http.Client())));
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,27 +23,21 @@ class MyApp extends StatelessWidget {
       home: MultiBlocProvider(
         providers: [
           BlocProvider<TabBloc>(
-            builder: (context) => TabBloc(),
+            builder: (context) => tabBloc,
           ),
           BlocProvider<PostBloc>(
-            builder: (context) => PostBloc(
-              postRepository: postRepository
-            ),
+            builder: (context) => postBloc,
           )
         ],
         child: HomePage(),
       ),
-      theme: ThemeData(
-        primaryColor: covivoPrimary,
-        accentColor: covivoAccent
-      ),
-      onGenerateRoute: (settings){
-        if(settings.name == CommentPage.routeName){
-          return MaterialPageRoute(
-            builder: (context){
-              return CommentPage(post : settings.arguments);
-            }
-          );
+      theme: ThemeData(primaryColor: covivoPrimary, accentColor: covivoAccent),
+      onGenerateRoute: (settings) {
+        if (settings.name == CommentPage.routeName) {
+          return MaterialPageRoute(builder: (context) {
+            return BlocProvider.value(
+                value: postBloc, child: CommentPage(post: settings.arguments));
+          });
         }
       },
     );

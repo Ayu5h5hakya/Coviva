@@ -3,7 +3,6 @@ import 'package:coviva/common/bloc/posts/post_event.dart';
 import 'package:coviva/common/bloc/posts/post_state.dart';
 import 'package:coviva/common/colors.dart';
 import 'package:coviva/common/models/post.dart';
-import 'package:coviva/common/services/post_services.dart';
 import 'package:coviva/common/widgets/commentTile.dart';
 import 'package:coviva/common/widgets/interaction.dart';
 import 'package:coviva/common/widgets/postMeta.dart';
