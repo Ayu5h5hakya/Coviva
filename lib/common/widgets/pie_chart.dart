@@ -16,7 +16,7 @@ class StatsPie extends StatelessWidget {
     return CustomPaint(
       painter: PiePainter(dataMap : {likeCount : Colors.blue, favoriteCount : Colors.red}),
       child: Center(
-        child: Text('Nice'),
+        child: Text(''),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:coviva/common/colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -28,8 +29,14 @@ class PiePainter extends CustomPainter {
 
   void _buildSector(Canvas canvas, Size size, int portion, Color portionColor) {
     var paint = Paint();
-    paint.color = Colors.amber;
+    paint.color = Colors.black;
     paint.strokeWidth = 5;
+
+    var paint2 = Paint();
+    paint2.color = postsBackground;
+    paint2.strokeWidth = 4;
+    paint2.style = PaintingStyle.stroke;
+    paint2.strokeCap = StrokeCap.round;
 
     paint.color = portionColor;
     paint.style = PaintingStyle.fill;
@@ -44,6 +51,8 @@ class PiePainter extends CustomPainter {
       ..arcTo(rect, degToRad(totalSweep), degToRad(sectorSweep), false)
       ..close();
     canvas.drawPath(path, paint);
+    
+    canvas.drawPath(path, paint2);
     totalSweep +=sectorSweep;
   }
 }
