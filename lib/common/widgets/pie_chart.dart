@@ -1,4 +1,5 @@
 import 'package:coviva/common/widgets/pie_painter.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class StatsPie extends StatelessWidget {
@@ -8,22 +9,14 @@ class StatsPie extends StatelessWidget {
 
   StatsPie({Key key,
     @required this.likeCount,
-    @required this.favoriteCount}) : super(key : key)
-
+    @required this.favoriteCount}) : super(key : key);
+    
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return CustomPaint(
-      painter: PiePainter(),
+      painter: PiePainter(dataMap : {likeCount : Colors.blue, favoriteCount : Colors.red}),
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('test'),
-            Text('test'),
-            Text('test')
-          ],
-        ),
+        child: Text('Nice'),
       ),
     );
   }
