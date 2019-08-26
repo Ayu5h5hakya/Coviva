@@ -1,8 +1,10 @@
+import 'package:coviva/common/bloc/auth/auth_bloc.dart';
 import 'package:coviva/common/bloc/posts/post_bloc.dart';
 import 'package:coviva/common/bloc/posts/post_event.dart';
 import 'package:coviva/common/bloc/posts/post_state.dart';
 import 'package:coviva/common/widgets/interaction.dart';
 import 'package:coviva/common/models/post.dart';
+import 'package:coviva/common/widgets/interaction.dart';
 import 'package:coviva/common/widgets/postMeta.dart';
 import 'package:flutter/material.dart';
 import 'package:coviva/pages/postComments/comments.dart';
@@ -25,7 +27,7 @@ class PostsPage extends StatelessWidget {
             return ListView.builder(
               itemCount: 5,
               itemBuilder: (context, index) {
-                return _buildPostCard(context,postBloc,state.posts[index]);
+                return _buildPostCard(context, postBloc,state.posts[index]);
               },
             );
           } else if(state is PostError){
@@ -60,7 +62,13 @@ class PostsPage extends StatelessWidget {
               PostBottomBar(
                 parentAction: (type){
                   print(type);
-                  bloc.dispatch(InsertDB(post: post));
+                  if(type == ButtonActions.favorite) {
+                    bloc.dispatch(InsertDB(post: post));
+                  } else if(type == ButtonActions.upvote){
+                    bloc.dispatch(InsertFirebase(post : post));
+                  } else if(type == ButtonActions.downvote){
+                    bloc.dispatch(DeleteFirebase(post : post));
+                  }
                 },
               )
             ],

@@ -13,9 +13,30 @@ class FetchComment extends FetchEvent {
   String toString() => 'FetchComment';
 }
 
+class InsertFirebase extends FetchEvent {
+  final Post post;
+
+  InsertFirebase({this.post});
+  @override
+  String toString() => 'FirebaseInsert';
+}
+
+class DeleteFirebase extends FetchEvent {
+  final Post post;
+
+  DeleteFirebase({this.post});
+  @override
+  String toString() => 'FirebaseDelete';
+}
+
 class FetchDB extends FetchEvent {
   @override
   String toString() => 'DBGet';
+}
+
+class FetchStats extends FetchEvent {
+  @override
+  String toString() => 'FetchStats';
 }
 
 class InsertDB extends FetchEvent {

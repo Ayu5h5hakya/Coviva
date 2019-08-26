@@ -35,3 +35,10 @@ class PostLoaded extends FetchState {
   String toString() => 'PostLoaded{posts : ${posts.length}, hasReachedMax : $hasReachedMax}';
 
 }
+
+class StatsLoaded extends FetchState {
+  final int likeCount;
+  final int favoriteCount;
+
+  StatsLoaded({this.likeCount, this.favoriteCount}) : super([likeCount, favoriteCount]);
+}

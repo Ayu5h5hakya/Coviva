@@ -45,6 +45,27 @@ class PostBloc extends Bloc<FetchEvent, FetchState> {
       } catch (_) {
         yield PostError();
       }
+    } else if(event is InsertFirebase){
+      try {
+        await postRepository.likePost(event.post);
+        yield PostLoaded(posts: (this.currentState as PostLoaded).posts);
+      } catch (_) {
+        yield PostError();
+      }
+    } else if(event is DeleteFirebase){
+      try {
+        await postRepository.dislikePost(event.post);
+        yield PostLoaded(posts: (this.currentState as PostLoaded).posts);
+      } catch (_) {
+        yield PostError();
+      }
+    } else if(event is FetchStats){
+      try {
+        final posts = await postRepository.getStats();
+        yield StatsLoaded(favoriteCount : posts.favoriteCount, likeCount : posts.likeCount);
+      } catch(_){
+        yield PostError();
+      }
     } else if (event is Reset) {
       yield PostUninitailized();
     }

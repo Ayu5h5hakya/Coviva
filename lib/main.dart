@@ -1,4 +1,6 @@
 import 'package:coviva/common/bloc/auth/auth_bloc.dart';
+import 'package:coviva/common/bloc/auth/auth_event.dart';
+import 'package:coviva/common/bloc/login/login_bloc.dart';
 import 'package:coviva/common/bloc/posts/post_bloc.dart';
 import 'package:coviva/common/bloc/tabs/tab.dart';
 import 'package:coviva/common/colors.dart';
@@ -14,6 +16,7 @@ import 'package:http/http.dart' as http;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final UserRepository userRepository = UserRepository();
   final TabBloc tabBloc = TabBloc();
   final PostBloc postBloc = PostBloc(
       postRepository: PostRepository(
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      builder: (context) => AuthenticationBloc(userRepository: UserRepository()),
+      builder: (context) => AuthenticationBloc(userRepository: userRepository)..dispatch(AppStarted()),
       child: _getMaterialApp(),
     );
   }
@@ -37,6 +40,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<PostBloc>(
             builder: (context) => postBloc,
+          ),
+          BlocProvider<LoginBloc>(
+            builder: (context) => LoginBloc(userRepository: userRepository),
           )
         ],
         child: HomePage(),
