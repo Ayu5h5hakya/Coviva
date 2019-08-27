@@ -33,11 +33,20 @@ class ProfilePage extends StatelessWidget {
           return Center(
             child: CircularProgressIndicator(),
           );
-        }
-        else if (state is StatsLoaded) {
+        } else if (state is StatsLoaded) {
           final favoritesCount = state.favoriteCount;
           final likesCount = state.likeCount;
-          return StatsPie(likeCount: likesCount, favoriteCount: favoritesCount);
+          return StatsPie(
+            likeCount: likesCount,
+            favoriteCount: favoritesCount,
+            onSectorClicked: (statMap) {
+              Scaffold.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text(statMap.toString())
+                ));
+            },
+          );
         }
       },
     );

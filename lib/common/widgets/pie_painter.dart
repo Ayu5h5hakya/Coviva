@@ -5,11 +5,13 @@ import 'dart:math';
 
 class PiePainter extends CustomPainter {
   List<StatMap> dataMap;
+  List<Path> sectors;
+  final void Function(StatMap) onSectorClicked;
   double sumAggregate = 0.0;
   double totalSweep = 0.0;
 
-  PiePainter({this.dataMap}){
-    print(dataMap);
+  PiePainter({this.dataMap,this.onSectorClicked }){
+    sectors = [];
     dataMap.forEach((elem){
       sumAggregate+=elem.portion;
     });
@@ -17,6 +19,7 @@ class PiePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    sectors.clear();
     dataMap.forEach((elem) {
       _buildSector(canvas, size, elem.portion,elem.portionColor);
     });
@@ -49,13 +52,25 @@ class PiePainter extends CustomPainter {
     Offset center = Offset(size.width / 2, size.height / 2);
     Rect rect = Rect.fromCircle(center: center, radius: size.width / 4);
     Path path = Path()
-      // set the "current point"
       ..moveTo(center.dx, center.dy)
       ..arcTo(rect, degToRad(totalSweep), degToRad(sectorSweep), false)
       ..close();
     canvas.drawPath(path, paint);
     
     canvas.drawPath(path, paint2);
+
+    sectors.add(path);
     totalSweep +=sectorSweep;
+  }
+
+  @override
+  bool hitTest(Offset position) {
+    print(position);
+    sectors.forEach((sector){
+      if(sector.contains(position))
+        onSectorClicked(dataMap.elementAt(sectors.indexOf(sector)));
+        return true;
+    });
+    return super.hitTest(position);
   }
 }
