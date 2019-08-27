@@ -36,16 +36,36 @@ class ProfilePage extends StatelessWidget {
         } else if (state is StatsLoaded) {
           final favoritesCount = state.favoriteCount;
           final likesCount = state.likeCount;
-          return StatsPie(
-            likeCount: likesCount,
-            favoriteCount: favoritesCount,
-            onSectorClicked: (statMap) {
-              Scaffold.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(SnackBar(
-                  content: Text(statMap.toString())
-                ));
-            },
+          return Column(
+            children: <Widget>[
+              StatsPie(
+                likeCount: likesCount,
+                favoriteCount: favoritesCount,
+                onSectorClicked: (statMap) {
+                  Scaffold.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(SnackBar(content: Text(statMap.toString())));
+                },
+              ),
+              Card(
+                child: Container(
+                  padding: EdgeInsets.all(5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(left: 16.0, top: 16.0, bottom: 16.0),
+                        child: Text('$likesCount'),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 16.0, top: 16.0, bottom: 16.0),
+                        child: Text('$favoritesCount'),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
           );
         }
       },
