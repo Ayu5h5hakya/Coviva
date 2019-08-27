@@ -25,7 +25,6 @@ class TabSelector extends StatelessWidget {
               icon: Icon(Icons.person), title: Text('Profile'))
         ],
         currentIndex: AppTab.values.indexOf(activeTab),
-        selectedItemColor: covivoAccent,
         onTap: (index) => onTabSelected(AppTab.values[index]),
       );
   }
