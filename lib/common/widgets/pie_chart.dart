@@ -1,3 +1,4 @@
+import 'package:coviva/common/models/StatMap.dart';
 import 'package:coviva/common/widgets/pie_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,9 +15,13 @@ class StatsPie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: PiePainter(dataMap : {likeCount : Colors.blue, favoriteCount : Colors.red}),
+      painter: PiePainter(
+        dataMap : [
+          StatMap(portion: likeCount, portionColor: Colors.red),
+          StatMap(portion: favoriteCount, portionColor: Colors.blue)
+        ]),
       child: Center(
-        child: Text(''),
+        child: Text('Nice'),
       ),
     );
   }

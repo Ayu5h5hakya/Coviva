@@ -1,22 +1,24 @@
 import 'package:coviva/common/colors.dart';
+import 'package:coviva/common/models/StatMap.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
 class PiePainter extends CustomPainter {
-  final Map<int, Color> dataMap;
+  List<StatMap> dataMap;
   double sumAggregate = 0.0;
   double totalSweep = 0.0;
 
   PiePainter({this.dataMap}){
-    dataMap.forEach((key, value){
-      sumAggregate+=key;
+    print(dataMap);
+    dataMap.forEach((elem){
+      sumAggregate+=elem.portion;
     });
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    dataMap.forEach((key, value) {
-      _buildSector(canvas, size, key,value);
+    dataMap.forEach((elem) {
+      _buildSector(canvas, size, elem.portion,elem.portionColor);
     });
   }
 
@@ -24,6 +26,7 @@ class PiePainter extends CustomPainter {
   bool shouldRepaint(CustomPainter oldDelegate) {
     return false;
   }
+
 
   num degToRad(num deg) => deg * (pi / 180.0);
 
